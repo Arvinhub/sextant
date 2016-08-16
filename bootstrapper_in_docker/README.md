@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Bootstrapper
 Bootstrapper是kubernetes机群的自动安装软件。它在机群中的一台机器上使用docker方式启动，为kubernetes机群自动化部署提供服务。
 
@@ -86,3 +87,17 @@ $ docker run -d \
      -v /path/to/ClusterDesc.yaml:/path/to/Clusterdesc.yaml \
      [bootstrapper_image_name:tag]
 ```
+=======
+# bootstrapper
+Setup one machine to bootstrap an entire kubernetes cluster
+
+# Design
+Bootstrapper runs on a single machine in the cluster, docker environment is needed to setup bootstrapper.
+
+1. Entry: read user configuration from command line or yaml file, then setup components below according to user configurations, see [bootstrapper.go](./bootstrapper.go). 
+1. CoreOS image updater: Download the current version of coreos images to PXE specified directory, at bootstrapping stage(release channel is also configurable), then try to update the image, so newly installed workers will be using the latest version of CoreOS, and of course, machines installed previously will update automatically by themselves.
+1. dnsmasq: install and setup dnsmasq in docker according to https://github.com/k8sp/auto-install/issues/102
+1. docker registry: setup a docker registry on the bootstrapper machine, and serve all the docker images that kubernetes master/worker will use, so that master/worker installation will no longer need internet access.
+
+* Notice: all the steps can run concurrently, so each step will be a go routine. Entry manages these go routines.
+>>>>>>> 026c83df38d01390fdb115ae02936cd06f2d4cfe

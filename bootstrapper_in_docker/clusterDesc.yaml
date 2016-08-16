@@ -1,0 +1,9 @@
+ipaddr: 192.157.1.1
+interface: eth0
+domain: bootstrapper.baifendian.com
+leases: 12h
+dhcprange: "192.157.1.100,192.157.1.150"
+netmask: 255.255.255.0
+dnsserver: 8.8.8.8
+gateway: 192.157.1.1
+broadcastaddr: 255.255.255.0
